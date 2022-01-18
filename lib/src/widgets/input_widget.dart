@@ -84,6 +84,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
   final Iterable<String>? autofillHints;
 
   final List<String>? countries;
+  final String? defaultCountry;
 
   InternationalPhoneNumberInput(
       {Key? key,
@@ -122,7 +123,8 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       this.focusNode,
       this.cursorColor,
       this.autofillHints,
-      this.countries})
+      this.countries,
+      this.defaultCountry})
       : super(key: key);
 
   @override
@@ -210,6 +212,12 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
           widget.selectorConfig.countryComparator;
       if (countryComparator != null) {
         countries.sort(countryComparator);
+      }
+
+      if (widget.defaultCountry != null) {
+        Country found = countries.firstWhere((country) => country.alpha2Code == widget.defaultCountry);
+        countries.remove(found);
+        countries.add(found);
       }
 
       setState(() {
