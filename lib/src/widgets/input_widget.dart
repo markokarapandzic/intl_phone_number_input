@@ -86,6 +86,8 @@ class InternationalPhoneNumberInput extends StatefulWidget {
   final List<String>? countries;
   final String? defaultCountry;
 
+  final List<TextInputFormatter>? inputFormatters;
+
   InternationalPhoneNumberInput(
       {Key? key,
       this.selectorConfig = const SelectorConfig(),
@@ -124,7 +126,8 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       this.cursorColor,
       this.autofillHints,
       this.countries,
-      this.defaultCountry})
+      this.defaultCountry,
+      this.inputFormatters})
       : super(key: key);
 
   @override
@@ -446,7 +449,7 @@ class _InputWidgetView
               validator: widget.validator ?? state.validator,
               onSaved: state.onSaved,
               scrollPadding: widget.scrollPadding,
-              inputFormatters: [
+              inputFormatters: widget.inputFormatters ?? [
                 LengthLimitingTextInputFormatter(widget.maxLength),
                 widget.formatInput
                     ? AsYouTypeFormatter(
